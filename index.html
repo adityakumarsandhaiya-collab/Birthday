@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Happy Birthday Yash</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+  /* Reset & base */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family: 'Georgia', serif;
+    color: #ffd700;
+    background: #1a1a1a;
+    overflow: hidden;
+  }
+
+  /* Banner */
+  .banner {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background: linear-gradient(45deg, #ff33cc, #00ccff, #ffcc00, #ff0066);
+    color: #fff; font-family: 'Great Vibes', cursive;
+    font-size: 1.4em; padding: 8px 0; text-align: center;
+    white-space: nowrap; overflow: hidden; z-index: 1200;
+    animation: scrollText 14s linear infinite;
+  }
+  @keyframes scrollText { 0% { transform: translateX(100%);} 100% { transform: translateX(-100%); } }
+
+  /* Floating decorations */
+  .floating { position: fixed; width: 32px; height: 32px; z-index: 1100; pointer-events:none; background-size:cover; opacity: .95; }
+  .but1{ top:10%; left:6%; background-image:url('https://img.icons8.com/emoji/48/000000/butterfly-emoji.png'); animation:floatA 8s ease-in-out infinite; }
+  .but2{ top:18%; right:6%; background-image:url('https://img.icons8.com/emoji/48/000000/butterfly-emoji.png'); animation:floatB 9s ease-in-out infinite; }
+  .hrt1{ top:40%; left:10%; background-image:url('https://img.icons8.com/emoji/48/000000/heart-suit.png'); animation:floatC 7s ease-in-out infinite; }
+  .hrt2{ top:65%; right:12%; background-image:url('https://img.icons8.com/emoji/48/000000/heart-suit.png'); animation:floatA 8s ease-in-out infinite; }
+  @keyframes floatA { 0%{transform:translateY(0)}50%{transform:translate(40px,-20px)}100%{transform:translateY(0)} }
+  @keyframes floatB { 0%{transform:translateY(0)}50%{transform:translate(-40px,-30px)}100%{transform:translateY(0)} }
+  @keyframes floatC { 0%{transform:translateY(0) scale(1)}50%{transform:translate(-30px,-10px) scale(1.05)}100%{transform:translateY(0) scale(1)} }
+
+  /* Section base */
+  .section {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    padding-top: 70px; padding-bottom: 70px; transition: opacity .6s ease, transform .6s ease;
+    opacity: 0; pointer-events: none;
+  }
+  .section.active { opacity: 1; pointer-events: auto; }
+
+  /* Card style */
+  .section-inner {
+    width: 92%; max-width: 980px; border-radius: 18px; padding: 22px;
+    background: rgba(0,0,0,0.65); border: 3px solid #ffd700;
+    box-shadow: 0 0 22px rgba(255,215,0,0.8); text-align: center;
+  }
+
+  /* Festive gradient */
+  .festive {
+    background: linear-gradient(135deg,#ff69b4,#ff1493,#db7093,#ffc1cc);
+    background-size: 200% 200%; animation: festiveBG 12s linear infinite;
+  }
+  @keyframes festiveBG { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
+
+  /* Home main photo */
+  .main-photo {
+    width: 190px; height: 190px; object-fit: cover; border-radius: 12px;
+    border: 3px solid #ffd700; box-shadow: 0 0 14px rgba(255,215,0,0.7); margin: 12px auto;
+  }
+
+  /* Photo page layout */
+  .photo-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 8px; }
+  .photo-img { width: 260px; height: 260px; border-radius: 12px; object-fit: cover;
+    border: 4px solid #ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.8);
+  }
+
+  /* Reactions – Attractive & Exclusive */
+  .reactions { display:flex; gap:16px; align-items:center; justify-content:center; margin-top:10px; }
+  .reaction-btn { 
+    width:50px; height:50px; border-radius:14px; border:none; 
+    background:rgba(255,255,255,0.08); color:#fff; font-size:1.6rem; 
+    cursor:pointer; box-shadow:0 0 10px rgba(0,0,0,0.4);
+    transition: all 0.25s ease;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .reaction-btn.liked { 
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53); 
+    transform: scale(1.18); 
+    box-shadow: 0 0 20px rgba(255,107,107,0.9), 0 0 30px rgba(255,142,83,0.6);
+    color: #fff;
+  }
+
+  /* Reveal */
+  .reveal-btn { 
+    margin-top:12px; padding:8px 14px; border-radius:12px; border:2px solid #ffd700;
+    background:linear-gradient(45deg,#ff69b4,#ff1493); color:#fff; cursor:pointer; font-weight:700;
+  }
+  .reveal-btn:active{ transform: scale(.98); }
+
+  /* Shayari box */
+  .shayari {
+    margin-top:12px;
+    background: linear-gradient(45deg, rgba(255,215,0,0.06), rgba(255,105,180,0.04));
+    border: 2px solid rgba(255,215,0,0.18);
+    padding: 14px;
+    border-radius: 12px;
+    min-height: 120px;
+    color: #fff;
+    font-size: 1.05rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    line-height:1.5;
+  }
+  .shayari .text {
+    display:block;
+    opacity:1;
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .shayari .fadeout { opacity: 0; transform: translateY(6px); }
+
+  /* Navigation row */
+  .nav-row { margin-top:14px; display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap; }
+  .nav-btn { 
+    padding:8px 12px; border-radius:10px; border:2px solid #ffd700; 
+    background: rgba(0,0,0,0.2); color:#fff; cursor:pointer; 
+  }
+
+  /* Developer Button */
+  .dev-btn {
+    padding:8px 12px; border-radius:10px; border:2px solid #ffd700; 
+    background: rgba(0,0,0,0.2); color:#fff; cursor:pointer; 
+    font-size: 0.9rem;
+  }
+
+  /* Responsive */
+  @media (max-width:700px){
+    .photo-img { width: 200px; height:200px; }
+    .main-photo { width:150px; height:150px; }
+    .shayari { min-height: 100px; font-size: 0.98rem; }
+    .reaction-btn { width:44px; height:44px; font-size:1.4rem; }
+  }
+  </style>
+</head>
+<body>
+
+  <audio id="bgAudio" src="music.mp3" loop></audio>
+
+  <div class="banner">Happy Birthday Yash — Janmo Din Ki Hardik Shubhkamnayein!</div>
+  <div class="floating but1"></div>
+  <div class="floating but2"></div>
+  <div class="floating hrt1"></div>
+  <div class="floating hrt2"></div>
+
+  <!-- HOME SECTION -->
+  <section id="sec-home" class="section active">
+    <div class="section-inner festive">
+      <img class="main-photo" src="main.jpg" alt="Main Photo">
+      <h1 style="font-family:'Great Vibes',cursive;font-size:2.4rem;margin-top:8px;">Happy Birthday, Yash!</h1>
+      <p style="color:#fff0f5;margin-top:6px;">From your crazy friends — masti aur dher saari wishes!
+     <br> wishes 𝐁𝐘 ☞ dhananjay💑</p>
+      <div style="margin-top:14px;">
+        <button class="reveal-btn" onclick="goTo('sec-1'); startMusic();">Start Memories📝</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMORY 1 -->
+  <section id="sec-1" class="section">
+    <div class="section-inner">
+      <h2 style="font-family:'Great Vibes',cursive;font-size:2.2rem;">Memory 1</h2>
+      <div class="photo-wrap">
+        <img class="photo-img" src="profile1.jpg" alt="photo 1">
+        <div class="reactions">
+          <button class="reaction-btn" onclick="selectReaction(this)">🎂</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">🥳</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">❤️</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">🔥</button>
+        </div>
+        <button class="reveal-btn" onclick="openShayari('sh-1')">Reveal ✅</button>
+        <div id="sh-1" class="shayari"><span class="text"></span></div>
+        <div class="nav-row">
+          <button class="nav-btn" onclick="goBack()">⬅️ Back</button>
+          <button class="nav-btn" onclick="goTo('sec-2')">Next ➤</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMORY 2 -->
+  <section id="sec-2" class="section">
+    <div class="section-inner">
+      <h2 style="font-family:'Great Vibes',cursive;font-size:2.2rem;">Memory 2</h2>
+      <div class="photo-wrap">
+        <img class="photo-img" src="profile2.jpg" alt="photo 2">
+        <div class="reactions">
+          <button class="reaction-btn" onclick="selectReaction(this)">🎂</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">🥳</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">❤️</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">🔥</button>
+        </div>
+        <button class="reveal-btn" onclick="openShayari('sh-2')">Reveal ✅</button>
+        <div id="sh-2" class="shayari"><span class="text"></span></div>
+        <div class="nav-row">
+          <button class="nav-btn" onclick="goBack()">⬅️ Back</button>
+          <button class="nav-btn" onclick="goTo('sec-3')">Next ➤</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMORY 3 -->
+  <section id="sec-3" class="section">
+    <div class="section-inner">
+      <h2 style="font-family:'Great Vibes',cursive;font-size:2.2rem;">Memory 3</h2>
+      <div class="photo-wrap">
+        <img class="photo-img" src="profile3.jpg" alt="photo 3">
+        <div class="reactions">
+          <button class="reaction-btn" onclick="selectReaction(this)">🎂</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">🥳</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">❤️</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">🔥</button>
+        </div>
+        <button class="reveal-btn" onclick="openShayari('sh-3')">Reveal ✅</button>
+        <div id="sh-3" class="shayari"><span class="text"></span></div>
+        <div class="nav-row">
+          <button class="nav-btn" onclick="goBack()">⬅️ Back</button>
+          <button class="nav-btn" onclick="goTo('sec-4')">Next ➤</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMORY 4 -->
+  <section id="sec-4" class="section">
+    <div class="section-inner">
+      <h2 style="font-family:'Great Vibes',cursive;font-size:2.2rem;">Memory 4</h2>
+      <div class="photo-wrap">
+        <img class="photo-img" src="profile4.jpg" alt="photo 4">
+        <div class="reactions">
+          <button class="reaction-btn" onclick="selectReaction(this)">🎂</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">🥳</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">❤️</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">🔥</button>
+        </div>
+        <button class="reveal-btn" onclick="openShayari('sh-4')">Reveal ✅</button>
+        <div id="sh-4" class="shayari"><span class="text"></span></div>
+        <div class="nav-row">
+          <button class="nav-btn" onclick="goBack()">⬅️ Back</button>
+          <button class="nav-btn" onclick="goTo('sec-5')">Next ➤</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMORY 5 -->
+  <section id="sec-5" class="section">
+    <div class="section-inner">
+      <h2 style="font-family:'Great Vibes',cursive;font-size:2.2rem;">Memory 5</h2>
+      <div class="photo-wrap">
+        <img class="photo-img" src="profile5.jpg" alt="photo 5">
+        <div class="reactions">
+          <button class="reaction-btn" onclick="selectReaction(this)">🎂</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">🥳</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">❤️</button>
+          <button class="reaction-btn" onclick="selectReaction(this)">🔥</button>
+        </div>
+        <button class="reveal-btn" onclick="openShayari('sh-5')">Reveal ✅</button>
+        <div id="sh-5" class="shayari"><span class="text"></span></div>
+        <div class="nav-row">
+          <button class="nav-btn" onclick="goBack()">⬅️ Back</button>
+          <button class="nav-btn" onclick="goTo('sec-home')">🏠 Home</button>
+          <button class="dev-btn" onclick="window.open('https://t.me/mishra_143p', '_blank')">Developer</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  const bg = document.getElementById('bgAudio');
+  let musicStarted = false;
+
+  function startMusic() {
+    if (musicStarted) return;
+    bg.volume = 0.6;
+    bg.play().catch(() => {});
+    musicStarted = true;
+  }
+
+  window.addEventListener('load', () => {
+    bg.volume = 0.6;
+    bg.play().catch(() => {});
+  });
+
+  let navHistory = ['sec-home'];
+  let current = 'sec-home';
+
+  function goTo(id) {
+    if (!document.getElementById(id)) return;
+    if (id !== current) navHistory.push(id);
+    showSection(id);
+  }
+
+  function goBack() {
+    navHistory.pop();
+    const prev = navHistory.length ? navHistory[navHistory.length - 1] : 'sec-home';
+    showSection(prev);
+    current = prev;
+  }
+
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add('active');
+    current = id;
+    stopAllShayari();
+  }
+
+  // Exclusive Reaction: Only one at a time
+  function selectReaction(btn) {
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.reaction-btn').forEach(b => b.classList.remove('liked'));
+    btn.classList.add('liked');
+  }
+
+  const shayariData = {
+    'sh-1': [
+      "Yaar, teri dosti sabse alag — yaad hai wo late-night masti?",
+      "Happy birthday bro — let's make this year legendary!",
+      "Hasi teri sadaa jawaan rahe, masti ho bepanah.",
+      "Har plan mein tu headliner, hum sab tere support line pe hain.",
+      "Cheers to more trips, more jokes and more wins."
+    ],
+    'sh-2': [
+      "Buddy, teri smile se room brighten ho jata hai.",
+      "Wishing you all the best — you deserve the world.",
+      "Dil se dua: khushiyan milein har mod par.",
+      "Keep being that bindaas soul we all enjoy.",
+      "Aaj cake khao, kal nayi yaadein banao!"
+    ],
+    'sh-3': [
+      "Tere bina kahani adhoori si lagti hai, yaar.",
+      "May luck follow you, and trouble run away.",
+      "Dost hum tere, saath humesha nibhaayenge.",
+      "Smiles, memes, aur midnight calls — never change!",
+      "Let’s make this year our best chapter yet."
+    ],
+    'sh-4': [
+      "Friend, tere saath har trip mast hota hai.",
+      "Rise up, shine on — the world needs your energy.",
+      "Moments with you are evergreen memories.",
+      "Dosti ho ya darr — tu sabse khaas.",
+      "Birthday vibes on repeat — party hard!"
+    ],
+    'sh-5': [
+      "Bro, teri success hamari khushi hai.",
+      "May every wish of yours come true this year.",
+      "Laugh loud, live proud — that's your style.",
+      "Saath chalenge hum, jab tak saansen chalti hain.",
+      "Cake, music, dosti — sab tere naam!"
+    ]
+  };
+
+  const shayariTimers = {};
+
+  function openShayari(shId) {
+    const box = document.getElementById(shId);
+    if (!box || shayariTimers[shId]) return;
+    const textEl = box.querySelector('.text');
+    const list = shayariData[shId];
+    let idx = 0;
+    const currentText = textEl.textContent;
+    if (currentText) {
+      const found = list.indexOf(currentText);
+      if (found >= 0) idx = found;
+    }
+    textEl.textContent = list[idx];
+
+    shayariTimers[shId] = setInterval(() => {
+      textEl.classList.add('fadeout');
+      setTimeout(() => {
+        idx = (idx + 1) % list.length;
+        textEl.textContent = list[idx];
+        textEl.classList.remove('fadeout');
+      }, 320);
+    }, 3800);
+  }
+
+  function stopAllShayari() {
+    Object.keys(shayariTimers).forEach(k => {
+      clearInterval(shayariTimers[k]);
+      delete shayariTimers[k];
+    });
+    document.querySelectorAll('.shayari .text').forEach(t => t.classList.remove('fadeout'));
+  }
+
+  window.addEventListener('beforeunload', () => {
+    stopAllShayari();
+    try { bg.pause(); } catch(e) {}
+  });
+  </script>
+</body>
+</html>
